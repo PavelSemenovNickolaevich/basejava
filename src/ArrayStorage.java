@@ -3,7 +3,7 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-    int size = 0;
+    // int size = 0;
 
 
     void clear() {
@@ -31,10 +31,10 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        System.out.println(size());
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < size() - 1; i++) {
             if (uuid.contains(storage[i].toString())) {
-                storage[i] = storage[i + 1];
+                storage[i] = storage[size() - 1];
+                storage[size() - 1] = null;
 
             }
         }
