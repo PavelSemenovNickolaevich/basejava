@@ -3,8 +3,7 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-
-
+    int size = 0;
 
     void clear() {
         for (int i = 0; i < storage.length - 1; i++) {
@@ -13,16 +12,13 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        for (int i = 0; i < storage.length - 1; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                break;
-            }
-        }
+        storage[size] = r;
+        size++;
+
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < size() - 1; i++) {
+        for (int i = 0; i < size - 1; i++) {
             if (uuid.equals(storage[i].toString())) {
                 return storage[i];
             }
@@ -31,10 +27,11 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < size() - 1; i++) {
+        for (int i = 0; i < size - 1; i++) {
             if (uuid.contains(storage[i].toString())) {
-                storage[i] = storage[size() - 1];
-                storage[size() - 1] = null;
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
+                size--;
             }
         }
     }
@@ -43,8 +40,8 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        int count = size();
-        Resume[] resume = new Resume[count];
+        // int count = size();
+        Resume[] resume = new Resume[size];
         for (int i = 0; i < storage.length - 1; i++) {
             if (storage[i] != null) {
                 resume[i] = storage[i];
