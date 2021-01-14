@@ -21,13 +21,14 @@ public class ArrayStorage {
         }
     }
 
-    String get(String uuid) {
-        for (int i = 0; i < size(); i++) {
+    Resume get(String uuid) {
+        Resume r = new Resume();
+        for (int i = 0; i < size() - 1; i++) {
             if (uuid.equals(storage[i].toString())) {
-                return String.valueOf(storage[i]);
+                r = storage[i];
             }
         }
-        return "Fail";
+        return r;
     }
 
     void delete(String uuid) {
