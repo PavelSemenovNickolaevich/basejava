@@ -2,75 +2,56 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final Resume[] storage = new Resume[10000];
+    private final Resume[] storage = new Resume[10_000];
     private int size = 0;
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, null);
     }
 
-    public void save(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(r.getUuid())) {
-                System.out.println("Resume is exist " + r.getUuid());
-                size--;
-            }
-        }
-        if (storage.length == size) {
-            System.out.println("Storage is full");
+    public void save(Resume resume) {
+        int position = getPosition(resume.getUuid());
+        if (position != -1) {
+            System.out.println("Resume is exist: " + resume.getUuid() + " !");
+        } else if (storage.length == size) {
+            System.out.println("Storage is full!");
         } else {
-            storage[size] = r;
+            storage[size] = resume;
             size++;
         }
     }
 
-    public void update(Resume r) {
-        //TODO check if resume present
-        int position = 0;
-        for (int i = 0; i < size; i++) {
-            if (r.getUuid().equals(storage[i].getUuid())) {
-                position = i;
-            }
-        }
-        if (!r.getUuid().equals(storage[position].getUuid())) {
-            System.out.println("Resume doesnt exist for method update " + r.getUuid());
+    public void update(Resume resume) {
+        int position = getPosition(resume.getUuid());
+        if (position == -1) {
+            System.out.println("Resume doesnt exist for method update " + resume.getUuid() + " !");
         } else {
-            storage[position] = r;
+            storage[position] = resume;
         }
 
     }
 
     public Resume get(String uuid) {
-        int position = 0;
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
-                position = i;
-            }
-        }
-        if (uuid.equals(storage[position].getUuid())) {
+        int position = getPosition(uuid);
+        if (position == -1) {
+            System.out.println("Resume doesnt exist for method get " + uuid + " !");
+        } else {
             return storage[position];
-        } else if (!uuid.equals(storage[position].getUuid())) {
-            System.out.println("Resume doesnt exist for method get! " + uuid);
         }
         return null;
     }
 
     public void delete(String uuid) {
-        int position = 0;
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
-                position = i;
-            }
-        }
-        if (!uuid.equals(storage[position].getUuid())) {
-            System.out.println("Resume doesnt exist for method delete! " + uuid);
-        } else if (uuid.equals(storage[position].getUuid())) {
+        int position = getPosition(uuid);
+        if (position == -1) {
+            System.out.println("Resume doesnt exist for method delete " + uuid + " !");
+        } else {
             storage[position] = storage[size - 1];
             storage[size - 1] = null;
             size--;
@@ -82,14 +63,21 @@ public class ArrayStorage {
      */
     public Resume[] getAll() {
         Resume[] resume = new Resume[size];
-        for (int i = 0; i < size; i++) {
-            resume[i] = storage[i];
-        }
+        if (size >= 0) System.arraycopy(storage, 0, resume, 0, size);
         return resume;
     }
 
     public int size() {
         return size;
+    }
+
+    public int getPosition(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
