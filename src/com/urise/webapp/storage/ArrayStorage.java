@@ -12,12 +12,12 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null);
     }
 
     public void save(Resume resume) {
-        int position = getPosition(resume.getUuid());
-        if (position != -1) {
+        int index = getPosition(resume.getUuid());
+        if (index != -1) {
             System.out.println("Resume is exist: " + resume.getUuid() + " !");
         } else if (storage.length == size) {
             System.out.println("Storage is full!");
@@ -28,31 +28,31 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        int position = getPosition(resume.getUuid());
-        if (position == -1) {
-            System.out.println("Resume doesnt exist for method update " + resume.getUuid() + " !");
+        int index = getPosition(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Resume doesnt exist for method update: " + resume.getUuid() + " !");
         } else {
-            storage[position] = resume;
+            storage[index] = resume;
         }
 
     }
 
     public Resume get(String uuid) {
-        int position = getPosition(uuid);
-        if (position == -1) {
-            System.out.println("Resume doesnt exist for method get " + uuid + " !");
+        int index = getPosition(uuid);
+        if (index == -1) {
+            System.out.println("Resume doesnt exist for method get: " + uuid + " !");
+            return null;
         } else {
-            return storage[position];
+            return storage[index];
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        int position = getPosition(uuid);
-        if (position == -1) {
-            System.out.println("Resume doesnt exist for method delete " + uuid + " !");
+        int index = getPosition(uuid);
+        if (index == -1) {
+            System.out.println("Resume doesnt exist for method delete: " + uuid + " !");
         } else {
-            storage[position] = storage[size - 1];
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         }
@@ -71,7 +71,7 @@ public class ArrayStorage {
         return size;
     }
 
-    public int getPosition(String uuid) {
+    private int getPosition(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
