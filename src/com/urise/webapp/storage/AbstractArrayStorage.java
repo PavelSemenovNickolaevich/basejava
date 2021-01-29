@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -22,9 +25,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = getPosition(resume.getUuid());
         if (index > 0) {
-            System.out.println("Resume is exist: " + resume.getUuid() + " !");
+            //System.out.println("Resume is exist: " + resume.getUuid() + " !");
+            throw new ExistStorageException(resume.getUuid() + " not exist");
         } else if (STORAGE_LIMIT == size) {
-            System.out.println("Storage is full!");
+            throw new StorageException("Storage is full!", resume.getUuid());
         } else {
             addResume(resume, index);
             size++;
@@ -34,7 +38,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = getPosition(resume.getUuid());
         if (index < 0) {
-            System.out.println("Resume doesnt exist for method update: " + resume.getUuid() + " !");
+            throw new NotExistStorageException(resume.getUuid() + " not exist");
         } else {
             storage[index] = resume;
         }
@@ -44,7 +48,8 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getPosition(uuid);
         if (index < 0) {
-            System.out.println("Resume doesnt exist for method delete: " + uuid + " !");
+            //   System.out.println("Resume doesnt exist for method delete: " + uuid + " !");
+            throw new NotExistStorageException(uuid + " not exist");
         } else {
             deleteResume(index);
             storage[size - 1] = null;
@@ -65,8 +70,8 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = getPosition(uuid);
         if (index < 0) {
-            System.out.println("Resume doesnt exist for method get: " + uuid + " !");
-            return null;
+            throw new NotExistStorageException(uuid);
+            //   return null;
         } else {
             return storage[index];
         }
