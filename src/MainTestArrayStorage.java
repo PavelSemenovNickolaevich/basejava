@@ -6,7 +6,7 @@ import com.urise.webapp.storage.Storage;
  * Test for your com.urise.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    //  private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    // private static final Storage ARRAY_STORAGE = new ArrayStorage();
     private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
 
@@ -34,8 +34,8 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r6);
 
 //        ARRAY_STORAGE.save(r4);
-       // r1.setUuid("Test");
-        ARRAY_STORAGE.update(r1);
+        // r1.setUuid("Test");
+        // ARRAY_STORAGE.update(r1);
 
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
@@ -44,7 +44,7 @@ public class MainTestArrayStorage {
         System.out.println("Get r6: " + ARRAY_STORAGE.get(r6.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        //  System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         // System.out.println("Get index: " + Arrays.binarySearch(ARRAY_STORAGE.storage, 0, ARRAY_STORAGE.size(), r2));
 

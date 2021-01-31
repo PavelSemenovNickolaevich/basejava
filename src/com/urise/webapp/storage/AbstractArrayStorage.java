@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
 
-    protected static final int STORAGE_LIMIT = 10_000;
-    protected final Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected final static int STORAGE_LIMIT = 10;
+    protected static final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
     public int size() {
@@ -24,7 +24,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume resume) {
         int index = getPosition(resume.getUuid());
-        if (index > 0) {
+        if (index >= 0) {
             //System.out.println("Resume is exist: " + resume.getUuid() + " !");
             throw new ExistStorageException(resume.getUuid() + " not exist");
         } else if (STORAGE_LIMIT == size) {
@@ -48,8 +48,8 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getPosition(uuid);
         if (index < 0) {
-            //   System.out.println("Resume doesnt exist for method delete: " + uuid + " !");
-            throw new NotExistStorageException(uuid + " not exist");
+              System.out.println("Resume doesnt exist for method delete: " + uuid + " !");
+         //   throw new NotExistStorageException(uuid + " not exist");
         } else {
             deleteResume(index);
             storage[size - 1] = null;
@@ -71,7 +71,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getPosition(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
-            //   return null;
+          //  return null;
         } else {
             return storage[index];
         }
