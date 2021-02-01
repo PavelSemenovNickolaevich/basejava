@@ -55,9 +55,7 @@ public abstract class AbstractArrayStorageTest {
     @DisplayName("Save resume in storage")
     void save() throws Exception {
         storage.save(RESUME_4);
-        Assertions.assertEquals(4, storage.size());
-        Assertions.assertEquals("uuid4", RESUME_4.getUuid());
-        Assertions.assertEquals("uuid3", RESUME_3.getUuid());
+        Assertions.assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
     }
 
     @Test
@@ -73,16 +71,34 @@ public abstract class AbstractArrayStorageTest {
     void update() throws Exception {
         Resume newResume = new Resume(UUID_1);
         storage.update(newResume);
-        Assertions.assertEquals(newResume, RESUME_1);
+        Assertions.assertEquals(newResume, storage.get(UUID_1));
+    }
+
+    @Test
+    @DisplayName("Check that resume doesnt exist for update")
+    public void updateNotExist() throws Exception {
+        Assertions.assertThrows(NotExistStorageException.class, () -> {
+            storage.get("dummy");
+        });
     }
 
 
     @Test
     @DisplayName("Delete resume")
     void delete() throws Exception {
-        storage.delete(UUID_3);
-        Assertions.assertEquals(2, storage.size());
-        Assertions.assertEquals("uuid3", RESUME_3.getUuid());
+        Assertions.assertThrows(NotExistStorageException.class, () -> {
+            storage.delete(UUID_3);
+            Assertions.assertEquals(2, storage.size());
+            storage.get(UUID_3);
+        });
+    }
+
+    @Test
+    @DisplayName("Check that resume doesnt exist for delete")
+    public void deleteNotExist() throws Exception {
+        Assertions.assertThrows(NotExistStorageException.class, () -> {
+            storage.get("dummy");
+        });
     }
 
 
@@ -96,34 +112,15 @@ public abstract class AbstractArrayStorageTest {
         Assertions.assertEquals(RESUME_3, resumes[2]);
     }
 
-
     @Test
     @DisplayName("Get resume")
     public void get() throws Exception {
-        Assertions.assertEquals(RESUME_1, storage.get("uuid1"));
-
-
+        Assertions.assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
     }
 
     @Test
     @DisplayName("Check that resume doesnt exist for get")
     public void getNotExist() throws Exception {
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.get("dummy");
-        });
-    }
-
-    @Test
-    @DisplayName("Check that resume doesnt exist for update")
-    public void updateNotExist() throws Exception {
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.get("dummy");
-        });
-    }
-
-    @Test
-    @DisplayName("Check that resume doesnt exist for delete")
-    public void deleteNotExist() throws Exception {
         Assertions.assertThrows(NotExistStorageException.class, () -> {
             storage.get("dummy");
         });
@@ -138,9 +135,8 @@ public abstract class AbstractArrayStorageTest {
                     storage.save(new Resume());
                 }
             } catch (StorageException e) {
-                Assertions.fail(e.getMessage());
+                Assertions.fail("Overflow!");
             }
-            storage.save(new Resume());
             storage.save(new Resume());
         });
     }

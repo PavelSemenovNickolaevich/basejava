@@ -22,7 +22,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void deleteResume(int index) {
-        int numbers = size - index + 1;
-        System.arraycopy(storage, index + 1, storage, index, numbers);
+        int length = size - index + 1;
+        System.arraycopy(storage, index + 1, storage, index, length);
     }
 }

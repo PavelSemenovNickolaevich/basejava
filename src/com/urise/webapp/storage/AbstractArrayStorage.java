@@ -23,12 +23,12 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
-        int index = getPosition(resume.getUuid());
+        String uuid = resume.getUuid();
+        int index = getPosition(uuid);
         if (index >= 0) {
-            //System.out.println("Resume is exist: " + resume.getUuid() + " !");
-            throw new ExistStorageException(resume.getUuid() + " not exist");
+            throw new ExistStorageException(uuid + " not exist");
         } else if (STORAGE_LIMIT == size) {
-            throw new StorageException("Storage is full!", resume.getUuid());
+            throw new StorageException("Storage is full!", uuid);
         } else {
             addResume(resume, index);
             size++;
@@ -36,9 +36,10 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void update(Resume resume) {
-        int index = getPosition(resume.getUuid());
+        String uuid = resume.getUuid();
+        int index = getPosition(uuid);
         if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid() + " not exist");
+            throw new NotExistStorageException(uuid + " not exist");
         } else {
             storage[index] = resume;
         }
@@ -48,8 +49,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getPosition(uuid);
         if (index < 0) {
-              System.out.println("Resume doesnt exist for method delete: " + uuid + " !");
-         //   throw new NotExistStorageException(uuid + " not exist");
+            throw new NotExistStorageException(uuid + " not exist");
         } else {
             deleteResume(index);
             storage[size - 1] = null;
@@ -71,10 +71,8 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getPosition(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
-          //  return null;
-        } else {
-            return storage[index];
         }
+        return storage[index];
     }
 
     protected abstract int getPosition(String uuid);
