@@ -55,15 +55,14 @@ public abstract class AbstractArrayStorageTest {
     @DisplayName("Save resume in storage")
     void save() throws Exception {
         storage.save(RESUME_4);
-        Assertions.assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
+        Assertions.assertEquals(4, storage.size());
+        Assertions.assertEquals(RESUME_4, storage.get(UUID_4));
     }
 
     @Test
     @DisplayName("Check that resume is exist")
     public void saveExist() throws Exception {
-        Assertions.assertThrows(ExistStorageException.class, () -> {
-            storage.save(RESUME_1);
-        });
+        Assertions.assertThrows(ExistStorageException.class, () -> storage.save(RESUME_1));
     }
 
     @Test
@@ -86,18 +85,16 @@ public abstract class AbstractArrayStorageTest {
     @Test
     @DisplayName("Delete resume")
     void delete() throws Exception {
-        Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.delete(UUID_3);
-            Assertions.assertEquals(2, storage.size());
-            storage.get(UUID_3);
-        });
+        storage.delete(UUID_3);
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_3));
+        Assertions.assertEquals(2, storage.size());
     }
 
     @Test
     @DisplayName("Check that resume doesnt exist for delete")
     public void deleteNotExist() throws Exception {
         Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.get("dummy");
+            storage.get(UUID_4);
         });
     }
 
@@ -115,7 +112,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     @DisplayName("Get resume")
     public void get() throws Exception {
-        Assertions.assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
+        Assertions.assertEquals(RESUME_1, storage.get(UUID_1));
     }
 
     @Test
@@ -129,15 +126,13 @@ public abstract class AbstractArrayStorageTest {
     @Test
     @DisplayName("Storage of resume is overflow")
     public void saveOverflow() throws Exception {
-        Assertions.assertThrows(StorageException.class, () -> {
-            try {
-                for (int i = 3; i <= AbstractArrayStorage.STORAGE_LIMIT - 1; i++) {
-                    storage.save(new Resume());
-                }
-            } catch (StorageException e) {
-                Assertions.fail("Overflow!");
+        try {
+            for (int i = 3; i <= AbstractArrayStorage.STORAGE_LIMIT - 1; i++) {
+                storage.save(new Resume());
             }
-            storage.save(new Resume());
-        });
+        } catch (StorageException e) {
+            Assertions.fail("Overflow before time!");
+        }
+        Assertions.assertThrows(StorageException.class, () -> storage.save(new Resume()));
     }
 }
