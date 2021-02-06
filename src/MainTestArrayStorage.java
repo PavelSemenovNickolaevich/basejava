@@ -1,4 +1,5 @@
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ListStorage;
 import com.urise.webapp.storage.SortedArrayStorage;
 import com.urise.webapp.storage.Storage;
 
@@ -7,7 +8,8 @@ import com.urise.webapp.storage.Storage;
  */
 public class MainTestArrayStorage {
     // private static final Storage ARRAY_STORAGE = new ArrayStorage();
-    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    //private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ListStorage();
 
 
     public static void main(String[] args) {
