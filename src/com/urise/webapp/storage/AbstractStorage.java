@@ -8,48 +8,49 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract int getPosition(String uuid);
 
-    protected abstract void doSave(Resume resume);
+    protected abstract void doSave(Resume resume, int index);
 
     protected abstract void doUpdate(Resume resume, int index);
 
-    protected abstract Resume doGet(String uuid);
+    protected abstract Resume doGet(int index);
 
-    protected abstract void doDelete(String uuid);
+    protected abstract void doDelete(int index);
 
 
     public void save(Resume resume) {
-        isExist(resume.getUuid());
-        doSave(resume);
+        int index = isExist(resume.getUuid());
+        doSave(resume, index);
     }
 
     public void update(Resume resume) {
-        int index = getPosition(resume.getUuid());
-        isNotExist(resume.getUuid());
+        int index = isNotExist(resume.getUuid());
         doUpdate(resume, index);
     }
 
     public Resume get(String uuid) {
-        isNotExist(uuid);
-        return doGet(uuid);
+        int index = isNotExist(uuid);
+        return doGet(index);
     }
 
     public void delete(String uuid) {
-        isNotExist(uuid);
-        doDelete(uuid);
+        int index = isNotExist(uuid);
+        doDelete(index);
     }
 
-    private void isExist(String uuid) {
+    private int isExist(String uuid) {
         int index = getPosition(uuid);
         if (index >= 0) {
             throw new ExistStorageException(uuid);
         }
+        return index;
     }
 
-    private void isNotExist(String uuid) {
+    private int isNotExist(String uuid) {
         int index = getPosition(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
+        return index;
     }
 }
 

@@ -9,18 +9,13 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     private final List<Resume> resumeList = new ArrayList<>();
 
-
     @Override
     public void clear() {
         resumeList.clear();
     }
 
     @Override
-    public void doSave(Resume resume) {
-        String uuid = resume.getUuid();
-        if (resumeList.size() == AbstractArrayStorage.STORAGE_LIMIT) {
-            throw new StorageException("Storage is full!", uuid);
-        }
+    public void doSave(Resume resume, int index) {
         resumeList.add(resume);
     }
 
@@ -30,13 +25,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume doGet(String uuid) {
-        return resumeList.get(getPosition(uuid));
+    public Resume doGet(int index) {
+        return resumeList.get(index);
     }
 
     @Override
-    public void doDelete(String uuid) {
-        resumeList.remove(getPosition(uuid));
+    public void doDelete(int index) {
+        resumeList.remove(index);
     }
 
     @Override
