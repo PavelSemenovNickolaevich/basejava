@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -15,23 +16,26 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void save(Resume resume) {
+    public void doSave(Resume resume) {
+        String uuid = resume.getUuid();
+        if (resumeList.size() == AbstractArrayStorage.STORAGE_LIMIT) {
+            throw new StorageException("Storage is full!", uuid);
+        }
         resumeList.add(resume);
     }
 
     @Override
-    public void listUpdate(Resume resume, int index) {
+    public void doUpdate(Resume resume, int index) {
         resumeList.set(index, resume);
-
     }
 
     @Override
-    public Resume get(String uuid) {
+    public Resume doGet(String uuid) {
         return resumeList.get(getPosition(uuid));
     }
 
     @Override
-    public void delete(String uuid) {
+    public void doDelete(String uuid) {
         resumeList.remove(getPosition(uuid));
     }
 
@@ -45,6 +49,7 @@ public class ListStorage extends AbstractStorage {
         return resumeList.size();
     }
 
+    @Override
     public int getPosition(String uuid) {
         for (int i = 0; i < resumeList.size(); i++) {
             if (resumeList.get(i).getUuid().equals(uuid)) {
@@ -53,4 +58,5 @@ public class ListStorage extends AbstractStorage {
         }
         return -1;
     }
+
 }
