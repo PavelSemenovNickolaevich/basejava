@@ -1,6 +1,5 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
@@ -15,27 +14,32 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void doSave(Resume resume, int index) {
+    public void doSave(Resume resume, Object index) {
         resumeList.add(resume);
     }
 
     @Override
-    public void doUpdate(Resume resume, int index) {
-        resumeList.set(index, resume);
+    public void doUpdate(Resume resume, Object index) {
+        resumeList.set((Integer) index, resume);
     }
 
     @Override
-    public Resume doGet(int index) {
-        return resumeList.get(index);
+    public Resume doGet(Object index) {
+        return resumeList.get((Integer) index);
     }
 
     @Override
-    public void doDelete(int index) {
-        resumeList.remove(index);
+    public void doDelete(Object index) {
+        resumeList.remove((Integer) index);
     }
 
     @Override
-    public Resume[] getAll() {
+    protected boolean isCheckExist(Object index) {
+        return (Integer) index >= 0;
+    }
+
+    @Override
+    public Object[] getAll() {
         return resumeList.toArray(new Resume[resumeList.size()]);
     }
 
@@ -45,7 +49,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public int getPosition(String uuid) {
+    public Object getPosition(String uuid) {
         for (int i = 0; i < resumeList.size(); i++) {
             if (resumeList.get(i).getUuid().equals(uuid)) {
                 return i;

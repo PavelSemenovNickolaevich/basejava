@@ -21,44 +21,47 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void doSave(Resume resume, int index) {
+    public void doSave(Resume resume, Object index) {
         if (STORAGE_LIMIT == size) {
             throw new StorageException("Storage is full!", resume.getUuid());
         }
-        addResume(resume, index);
+        addResume(resume, (Integer) index);
         size++;
     }
 
     @Override
-    public void doUpdate(Resume resume, int index) {
-        String uuid = resume.getUuid();
-        index = getPosition(uuid);
-        storage[index] = resume;
+    public void doUpdate(Resume resume, Object index) {
+        storage[(int) index] = resume;
     }
 
     @Override
-    public void doDelete(int index) {
-        deleteResume(index);
+    public void doDelete(Object index) {
+        deleteResume((Integer) index);
         storage[size - 1] = null;
         size--;
+    }
+
+    @Override
+    protected boolean isCheckExist(Object index) {
+        return (Integer) index >= 0;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public Resume[] getAll() {
+    public Object[] getAll() {
         Resume[] resume = new Resume[size];
         if (size >= 0) System.arraycopy(storage, 0, resume, 0, size);
         return resume;
     }
 
     @Override
-    public Resume doGet(int index) {
-        return storage[index];
+    public Resume doGet(Object index) {
+        return storage[(int) index];
     }
 
 
-    protected abstract int getPosition(String uuid);
+    protected abstract Object getPosition(String uuid);
 
     protected abstract void addResume(Resume resume, int index);
 

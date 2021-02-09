@@ -60,12 +60,12 @@ public class MainArray {
     }
 
     static void printAll() {
-        Resume[] all = ARRAY_STORAGE.getAll();
+        Object[] all = ARRAY_STORAGE.getAll();
         System.out.println("----------------------------");
         if (all.length == 0) {
             System.out.println("Empty");
         } else {
-            for (Resume r : all) {
+            for (Object r : all) {
                 System.out.println(r);
             }
         }
