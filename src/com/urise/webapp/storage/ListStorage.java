@@ -30,7 +30,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public void doDelete(Object index) {
-        resumeList.remove((Integer) index);
+        resumeList.remove((int)index);
     }
 
     @Override
