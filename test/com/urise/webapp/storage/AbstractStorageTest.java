@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class AbstractStorageTest {
+public abstract class AbstractStorageTest {
 
     private final Storage storage;
 
@@ -90,7 +90,7 @@ public class AbstractStorageTest {
     @DisplayName("Delete resume")
     void delete() throws Exception {
         storage.delete(UUID_3);
-     //   Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_3));
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_3));
         assertSize(2);
     }
 

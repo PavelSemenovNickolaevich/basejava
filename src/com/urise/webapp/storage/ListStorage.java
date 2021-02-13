@@ -29,12 +29,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void doDelete(Object index) {
-        resumeList.remove((int)index);
+    public void doDelete(Object searchKey) {
+        resumeList.remove((int) searchKey);
     }
 
     @Override
-    protected boolean isCheckExist(Object index) {
+    protected boolean isExist(Object index) {
         return (Integer) index >= 0;
     }
 
