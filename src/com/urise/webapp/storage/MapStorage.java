@@ -38,10 +38,10 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Object[] getAll() {
-        List<Resume> resumeList = new ArrayList<>(resumeMap.values());
+    public List<Resume> getAllSorted() {
+        ArrayList<Resume> resumeList = new ArrayList<Resume>(resumeMap.values());
         Collections.sort(resumeList);
-        return resumeList.toArray();
+        return resumeList;
     }
 
     @Override

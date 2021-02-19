@@ -2,6 +2,8 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.List;
+
 public interface Storage {
 
     void clear();
@@ -17,8 +19,9 @@ public interface Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Object[] getAll();
+  //  Object[] getAll();
 
+    List<Resume> getAllSorted();
 
     int size();
 

@@ -50,5 +50,12 @@ public class MainCollections {
             System.out.println(entry.getValue());
         }
 
+        List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+        resumes.remove(1);
+        System.out.println(resumes);
+
+
     }
+
 }
+
