@@ -35,7 +35,8 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        Object index = getNotExistSearchKey(uuid);
+        Object index =
+                getNotExistSearchKey(uuid);
         doDelete(index);
     }
 

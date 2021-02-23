@@ -19,11 +19,8 @@ public interface Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-  //  Object[] getAll();
 
     List<Resume> getAllSorted();
 
     int size();
-
-
 }

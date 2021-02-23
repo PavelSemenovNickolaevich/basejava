@@ -7,7 +7,6 @@ import java.util.Comparator;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-
     //    private static class ResumeComparator implements Comparator<Resume> {
 //        @Override
 //        public int compare(Resume o1, Resume o2) {
@@ -36,5 +35,4 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int length = size - index + 1;
         System.arraycopy(storage, index + 1, storage, index, length);
     }
-
 }
