@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
      */
 
     @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> createListResume() {
         Resume[] resume = new Resume[size];
         if (size >= 0) System.arraycopy(storage, 0, resume, 0, size);
         return Arrays.asList(resume);
@@ -62,7 +62,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public Resume doGet(Object index) {
         return storage[(int) index];
     }
-
 
     protected abstract Object getPosition(String uuid);
 
