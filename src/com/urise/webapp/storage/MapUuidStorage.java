@@ -7,32 +7,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
     private Map<String, Resume> resumeMap = new HashMap<>();
 
     @Override
-    protected Object getPosition(String uuid) {
+    protected String getPosition(String uuid) {
         return uuid;
     }
 
     @Override
-    protected void doSave(Resume resume, Object searchKey) {
-        resumeMap.put((String) searchKey, resume);
+    protected void doSave(Resume resume, String searchKey) {
+        resumeMap.put(searchKey, resume);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-        resumeMap.put((String) searchKey, resume);
+    protected void doUpdate(Resume resume, String searchKey) {
+        resumeMap.put(searchKey, resume);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return resumeMap.get((String) searchKey);
+    protected Resume doGet(String searchKey) {
+        return resumeMap.get(searchKey);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        resumeMap.remove((String) searchKey);
+    protected void doDelete(String searchKey) {
+        resumeMap.remove(searchKey);
     }
 
     @Override
@@ -40,15 +40,14 @@ public class MapUuidStorage extends AbstractStorage {
         resumeMap.clear();
     }
 
-
     @Override
     protected List<Resume> doCopyAll() {
-        return new ArrayList<Resume>(resumeMap.values());
+        return new ArrayList<>(resumeMap.values());
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return resumeMap.containsKey((String) searchKey);
+    protected boolean isExist(String searchKey) {
+        return resumeMap.containsKey(searchKey);
     }
 
     @Override
