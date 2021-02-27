@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
@@ -86,7 +87,6 @@ public abstract class AbstractStorageTest {
         });
     }
 
-
     @Test
     @DisplayName("Delete resume")
     void delete() throws Exception {
@@ -106,12 +106,10 @@ public abstract class AbstractStorageTest {
 
     @Test
     @DisplayName("Get all resumes")
-    void getAll() throws Exception {
+    void getAllSorted() throws Exception {
         List<Resume> resumes = storage.getAllSorted();
         Assertions.assertEquals(3, resumes.size());
-        Assertions.assertEquals(RESUME_1, resumes.get(0));
-        Assertions.assertEquals(RESUME_2, resumes.get(1));
-        Assertions.assertEquals(RESUME_3, resumes.get(2));
+        Assertions.assertEquals(resumes, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
     @Test

@@ -38,19 +38,10 @@ public class ListStorage extends AbstractStorage {
         return (Integer) index >= 0;
     }
 
-//    @Override
-//    public List<Resume> getAllSorted() {
-//
-//        return resumeList;
-//    }
-//
-
     @Override
-    public List<Resume> createListResume() {
+    public List<Resume> doCopyAll() {
         return resumeList;
     }
-
-
 
     @Override
     public int size() {
