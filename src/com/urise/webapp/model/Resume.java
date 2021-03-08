@@ -12,13 +12,14 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
 
     // Unique identifier
-    private  String uuid;
+    final private String uuid;
+    private String fullName;
+    ContactsType type;
+    String name;
 
-    private  String fullName;
+    final private  Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
 
-    private  Map<ContactsType, String> contacts = new EnumMap<ContactsType, String>(ContactsType.class);
-
-    private Map<SectionType, AbstractSection> sections = new EnumMap<SectionType, AbstractSection>(SectionType.class);
+    final private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -37,6 +38,12 @@ public class Resume implements Comparable<Resume> {
 
     public AbstractSection getSection(SectionType type) {
         return sections.get(type);
+    }
+
+    public void setContacts(ContactsType type, String name) {
+        this.type = type;
+        this.name = name;
+
     }
 
     public String getUuid() {
@@ -62,14 +69,22 @@ public class Resume implements Comparable<Resume> {
 
         Resume resume = (Resume) o;
 
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        if (uuid != null ? !uuid.equals(resume.uuid) : resume.uuid != null) return false;
+        if (fullName != null ? !fullName.equals(resume.fullName) : resume.fullName != null) return false;
+        if (type != resume.type) return false;
+        if (name != null ? !name.equals(resume.name) : resume.name != null) return false;
+        if (contacts != null ? !contacts.equals(resume.contacts) : resume.contacts != null) return false;
+        return sections != null ? sections.equals(resume.sections) : resume.sections == null;
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (contacts != null ? contacts.hashCode() : 0);
+        result = 31 * result + (sections != null ? sections.hashCode() : 0);
         return result;
     }
 
@@ -86,4 +101,5 @@ public class Resume implements Comparable<Resume> {
         int res = fullName.compareTo(o.fullName);
         return (res == 0) ? uuid.compareTo(o.uuid) : fullName.compareTo(o.fullName);
     }
+
 }

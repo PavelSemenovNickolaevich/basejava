@@ -1,10 +1,10 @@
 package com.urise.webapp.model;
 
-public class TextStringSection extends AbstractSection {
+public class SingleLineSection extends AbstractSection {
 
-    String text;
+    private String text;
 
-    public TextStringSection(String text) {
+    public SingleLineSection(String text) {
         this.text = text;
     }
 
@@ -18,9 +18,7 @@ public class TextStringSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "TextStringSection{" +
-                "text='" + text + '\'' +
-                '}';
+        return text;
     }
 
     @Override
@@ -28,7 +26,7 @@ public class TextStringSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TextStringSection that = (TextStringSection) o;
+        SingleLineSection that = (SingleLineSection) o;
 
         return text != null ? text.equals(that.text) : that.text == null;
     }

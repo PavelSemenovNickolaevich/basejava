@@ -18,4 +18,9 @@ public enum ContactsType {
     public String getTitle() {
         return contact;
     }
+
+    @Override
+    public String toString() {
+        return contact;
+    }
 }

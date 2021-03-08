@@ -2,28 +2,40 @@ package com.urise.webapp.model;
 
 import java.time.LocalDate;
 
-public class WorkExperienceLearnSection extends AbstractSection {
+public class Experience extends AbstractSection {
 
-    private String nameWorkPlace;
-
-    private String nameLearnPlace;
-
+    private String nameOrganization;
     private LocalDate beginDate;
-
     private LocalDate endDate;
-
     private String title;
-
     private String description;
 
-    public WorkExperienceLearnSection(String nameWorkPlace, String nameLearnPlace, LocalDate beginDate
-            , LocalDate endDate, String title, String description) {
-        this.nameWorkPlace = nameWorkPlace;
-        this.nameLearnPlace = nameLearnPlace;
+    public Experience(String nameOrganization, LocalDate beginDate, LocalDate endDate, String title, String description) {
+        this.nameOrganization = nameOrganization;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.title = title;
         this.description = description;
+    }
+
+    public String getNameOrganization() {
+        return nameOrganization;
+    }
+
+    public LocalDate getBeginDate() {
+        return beginDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -31,11 +43,9 @@ public class WorkExperienceLearnSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        WorkExperienceLearnSection that = (WorkExperienceLearnSection) o;
+        Experience that = (Experience) o;
 
-        if (nameWorkPlace != null ? !nameWorkPlace.equals(that.nameWorkPlace) : that.nameWorkPlace != null)
-            return false;
-        if (nameLearnPlace != null ? !nameLearnPlace.equals(that.nameLearnPlace) : that.nameLearnPlace != null)
+        if (nameOrganization != null ? !nameOrganization.equals(that.nameOrganization) : that.nameOrganization != null)
             return false;
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
@@ -45,8 +55,7 @@ public class WorkExperienceLearnSection extends AbstractSection {
 
     @Override
     public int hashCode() {
-        int result = nameWorkPlace != null ? nameWorkPlace.hashCode() : 0;
-        result = 31 * result + (nameLearnPlace != null ? nameLearnPlace.hashCode() : 0);
+        int result = nameOrganization != null ? nameOrganization.hashCode() : 0;
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
@@ -56,13 +65,10 @@ public class WorkExperienceLearnSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "WorkExperienceLearnSection{" +
-                "nameWorkPlace='" + nameWorkPlace + '\'' +
-                ", nameLearnPlace='" + nameLearnPlace + '\'' +
-                ", beginDate=" + beginDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return nameOrganization + " " +
+                beginDate + " - " +
+                endDate + " " +
+                title + " " +
+                description;
     }
 }

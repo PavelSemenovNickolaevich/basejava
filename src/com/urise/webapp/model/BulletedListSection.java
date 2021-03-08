@@ -2,11 +2,11 @@ package com.urise.webapp.model;
 
 import java.util.List;
 
-public class ListStringSection extends AbstractSection {
+public class BulletedListSection extends AbstractSection {
 
     private List<String> text;
 
-    public ListStringSection(List<String> text) {
+    public BulletedListSection(List<String> text) {
         this.text = text;
     }
 
@@ -23,7 +23,7 @@ public class ListStringSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ListStringSection that = (ListStringSection) o;
+        BulletedListSection that = (BulletedListSection) o;
 
         return text != null ? text.equals(that.text) : that.text == null;
     }
@@ -35,8 +35,11 @@ public class ListStringSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "ListStringSection{" +
-                "text=" + text +
-                '}';
+        StringBuilder result = new StringBuilder();
+        for (String s : this.text) {
+            result.append("*").append(s).append("\n");
+        }
+        return result.toString();
     }
 }
+
