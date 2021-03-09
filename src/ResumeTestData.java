@@ -1,10 +1,7 @@
 import com.urise.webapp.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ResumeTestData {
 
@@ -57,7 +54,8 @@ public class ResumeTestData {
         Resume resumeTest = new Resume("1", "Ivanov Ivan");
         System.out.println(resumeTest.getFullName());
 
-        Map<ContactsType, String> contactsData = new HashMap<>();
+        Map<ContactsType, String> contactsData = new EnumMap<>(ContactsType.class);
+      //  contactsData.put(PHONE, "3f3ff3")
         contactsData.put(ContactsType.PHONE, "443434334");
         contactsData.put(ContactsType.SKYPE, "testSkype");
         contactsData.put(ContactsType.MAIL, "123@gmail.com");

@@ -12,14 +12,12 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
 
     // Unique identifier
-    final private String uuid;
-    private String fullName;
-    ContactsType type;
-    String name;
+    private final String uuid;
+    private final String fullName;
 
-    final private  Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
+    private final Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
 
-    final private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -40,12 +38,6 @@ public class Resume implements Comparable<Resume> {
         return sections.get(type);
     }
 
-    public void setContacts(ContactsType type, String name) {
-        this.type = type;
-        this.name = name;
-
-    }
-
     public String getUuid() {
         return uuid;
     }
@@ -58,10 +50,6 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,8 +59,6 @@ public class Resume implements Comparable<Resume> {
 
         if (uuid != null ? !uuid.equals(resume.uuid) : resume.uuid != null) return false;
         if (fullName != null ? !fullName.equals(resume.fullName) : resume.fullName != null) return false;
-        if (type != resume.type) return false;
-        if (name != null ? !name.equals(resume.name) : resume.name != null) return false;
         if (contacts != null ? !contacts.equals(resume.contacts) : resume.contacts != null) return false;
         return sections != null ? sections.equals(resume.sections) : resume.sections == null;
     }
@@ -81,8 +67,6 @@ public class Resume implements Comparable<Resume> {
     public int hashCode() {
         int result = uuid != null ? uuid.hashCode() : 0;
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (contacts != null ? contacts.hashCode() : 0);
         result = 31 * result + (sections != null ? sections.hashCode() : 0);
         return result;
