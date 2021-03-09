@@ -1,12 +1,14 @@
 package com.urise.webapp.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BulletedListSection extends AbstractSection {
 
     private List<String> text;
 
     public BulletedListSection(List<String> text) {
+        Objects.requireNonNull(text, "experience must not be null");
         this.text = text;
     }
 
