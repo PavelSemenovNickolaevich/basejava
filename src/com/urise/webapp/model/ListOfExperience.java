@@ -1,0 +1,58 @@
+package com.urise.webapp.model;
+
+import java.time.LocalDate;
+import java.util.Objects;
+
+public class ListOfExperience {
+
+    private final LocalDate beginDate;
+    private final LocalDate endDate;
+    private final String title;
+    private final String description;
+
+    public ListOfExperience(LocalDate beginDate, LocalDate endDate, String title, String description) {
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.title = title;
+        this.description = description;
+    }
+
+    public LocalDate getBeginDate() {
+        return beginDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ListOfExperience that = (ListOfExperience) o;
+        return Objects.equals(beginDate, that.beginDate) && Objects.equals(endDate, that.endDate) && Objects.equals(title, that.title) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(beginDate, endDate, title, description);
+    }
+
+    @Override
+    public String toString() {
+        return "ListOfExperience{" +
+                "beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+}

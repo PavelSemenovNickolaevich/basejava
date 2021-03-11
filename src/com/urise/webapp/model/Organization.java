@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Organization {
-    private List<Experience> experienceList;
+    private final List<Experience> experienceList;
 
     public Organization(List<Experience> experienceList) {
         Objects.requireNonNull(experienceList, "experience must not be null");

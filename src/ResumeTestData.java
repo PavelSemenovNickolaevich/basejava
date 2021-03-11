@@ -11,13 +11,12 @@ public class ResumeTestData {
     static LocalDate dateEndOne = LocalDate.of(2021, 12, 31);
     static LocalDate dateBeginTwo = LocalDate.of(2010, 12, 31);
     static LocalDate dateEndTwo = LocalDate.of(2019, 10, 31);
-    static LocalDate dateBeginEducation1 = LocalDate.of(1990, 10, 31);
-    static LocalDate dateEndEducation1 = LocalDate.of(1999, 10, 31);
-    static LocalDate dateBeginEducation2 = LocalDate.of(2000, 10, 31);
-    static LocalDate dateEndEducation2 = LocalDate.of(2002, 10, 31);
+    static LocalDate dateBeginWork1 = LocalDate.of(1990, 10, 31);
+    static LocalDate dateEndWork1 = LocalDate.of(1999, 10, 31);
+    static LocalDate dateBeginWork2 = LocalDate.of(2000, 10, 31);
+    static LocalDate dateEndWork2 = LocalDate.of(2002, 10, 31);
 
     public static void main(String[] args) {
-
         List<String> achievement = new ArrayList<>();
         achievement.add("Тест 11111");
         achievement.add("Тест 22222");
@@ -28,34 +27,37 @@ public class ResumeTestData {
         qualification.add("Python");
         qualification.add("JavaScript");
 
-        Experience experienceOne = new Experience("Gazprom", dateBeginOne
-                , dateEndOne, "Test", "Test");
+        ListOfExperience firstStudy = new ListOfExperience(dateBeginOne, dateEndOne, "Test1", "Test1");
+        ListOfExperience secondStudy = new ListOfExperience(dateBeginTwo, dateEndTwo, "Test2", "Test2");
 
-        Experience experienceTwo = new Experience("VTB", dateBeginTwo
-                , dateEndTwo, "Test2", "Test2");
+        ListOfExperience firstWork = new ListOfExperience(dateBeginWork1, dateEndWork1, "Test1", "Test1");
+        ListOfExperience secondWork = new ListOfExperience(dateBeginWork2, dateEndWork2, "Test2", "Test2");
 
-        Experience educationOne = new Experience("MGU", dateBeginEducation1
-                , dateEndEducation1, "Test", "Test");
+        List<ListOfExperience> differentPeriodsOfStudy = new ArrayList<>();
+        differentPeriodsOfStudy.add(firstStudy);
+        differentPeriodsOfStudy.add(secondStudy);
 
-        Experience educationTwo = new Experience("UDGU", dateBeginEducation2
-                , dateEndEducation2, "Test2", "Test2");
+        List<ListOfExperience> differentPeriodsOfWork = new ArrayList<>();
+        differentPeriodsOfWork.add(firstWork);
+        differentPeriodsOfWork.add(secondWork);
 
-        List<Experience> experienceList = new ArrayList<>();
-        experienceList.add(experienceOne);
-        experienceList.add(experienceTwo);
+        Experience experienceOne = new Experience("M_G_U", differentPeriodsOfStudy);
+        Experience experienceTwo = new Experience("Parlament", differentPeriodsOfWork);
 
         List<Experience> educationList = new ArrayList<>();
-        educationList.add(educationOne);
-        educationList.add(educationTwo);
+        educationList.add(experienceOne);
 
-        Organization organizationOne = new Organization(experienceList);
-        Organization organizationEduOne = new Organization(educationList);
+        List<Experience> workerList = new ArrayList<>();
+        workerList.add(experienceTwo);
+
+        Organization organizationOne = new Organization(educationList);
+        Organization organizationEduOne = new Organization(workerList);
 
         Resume resumeTest = new Resume("1", "Ivanov Ivan");
         System.out.println(resumeTest.getFullName());
 
         Map<ContactsType, String> contactsData = new EnumMap<>(ContactsType.class);
-      //  contactsData.put(PHONE, "3f3ff3")
+        //  contactsData.put(PHONE, "3f3ff3")
         contactsData.put(ContactsType.PHONE, "443434334");
         contactsData.put(ContactsType.SKYPE, "testSkype");
         contactsData.put(ContactsType.MAIL, "123@gmail.com");
@@ -79,7 +81,7 @@ public class ResumeTestData {
         objectiveMap.forEach((key, value) -> System.out.println(key + ": " + "\n" + value));
 
         Map<SectionType, String> achievementMap = new HashMap<>();
-        achievementMap.put(SectionType.ACHIEVEMENT,listSectionAchievements.toString());
+        achievementMap.put(SectionType.ACHIEVEMENT, listSectionAchievements.toString());
         achievementMap.forEach((key, value) -> System.out.println(key + ": " + "\n" + value));
 
         Map<SectionType, String> qualificationMap = new HashMap<>();

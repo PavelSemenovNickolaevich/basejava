@@ -1,74 +1,37 @@
 package com.urise.webapp.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Experience extends AbstractSection {
 
-    private String nameOrganization;
-    private LocalDate beginDate;
-    private LocalDate endDate;
-    private String title;
-    private String description;
+    private final String nameOrganization;
+    private final List<ListOfExperience> listOfExperiences;
 
-    public Experience(String nameOrganization, LocalDate beginDate, LocalDate endDate, String title, String description) {
+    public Experience(String nameOrganization, List<ListOfExperience> listOfExperiences) {
         this.nameOrganization = nameOrganization;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.title = title;
-        this.description = description;
-    }
-
-    public String getNameOrganization() {
-        return nameOrganization;
-    }
-
-    public LocalDate getBeginDate() {
-        return beginDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
+        this.listOfExperiences = listOfExperiences;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Experience that = (Experience) o;
-
-        if (nameOrganization != null ? !nameOrganization.equals(that.nameOrganization) : that.nameOrganization != null)
-            return false;
-        if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
-        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        return Objects.equals(nameOrganization, that.nameOrganization) && Objects.equals(listOfExperiences, that.listOfExperiences);
     }
 
     @Override
     public int hashCode() {
-        int result = nameOrganization != null ? nameOrganization.hashCode() : 0;
-        result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
-        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
+        return Objects.hash(nameOrganization, listOfExperiences);
     }
 
     @Override
     public String toString() {
-        return nameOrganization + " " +
-                beginDate + " - " +
-                endDate + " " +
-                title + " " +
-                description;
+        return "Experience{" +
+                "nameOrganization='" + nameOrganization + '\'' +
+                ", listOfExperiences=" + listOfExperiences +
+                '}';
     }
 }
