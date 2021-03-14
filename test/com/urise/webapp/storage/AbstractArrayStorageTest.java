@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
-
     public AbstractArrayStorageTest(Storage storage) {
         super(storage);
 
@@ -26,5 +25,4 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
         }
         Assertions.assertThrows(StorageException.class, () -> storage.save(new Resume("Overflow resume")));
     }
-
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
-    //  protected final Logger log = Logger.getLogger(getClass().getName());
 
     private final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
@@ -61,18 +60,18 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     private SK getExistSearchKey(String uuid) {
         SK searchKey = getPosition(uuid);
-        if (isExist(searchKey)) {
+        if (!isExist(searchKey)) {
             LOG.warning("Resume " + uuid + "already exist");
-            throw new ExistStorageException(uuid);
+            throw new NotExistStorageException(uuid);
         }
         return searchKey;
     }
 
     private SK getNotExistSearchKey(String uuid) {
         SK searchKey = getPosition(uuid);
-        if (!isExist(searchKey)) {
+        if (isExist(searchKey)) {
             LOG.warning("Resume " + uuid + " not exist");
-            throw new NotExistStorageException(uuid);
+            throw new ExistStorageException(uuid);
         }
         return searchKey;
     }

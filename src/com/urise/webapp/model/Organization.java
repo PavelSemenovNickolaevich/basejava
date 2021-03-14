@@ -3,16 +3,16 @@ package com.urise.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization {
-    private final List<Experience> experienceList;
+public class Organization extends AbstractSection {
 
-    public Organization(List<Experience> experienceList) {
-        Objects.requireNonNull(experienceList, "experience must not be null");
-        this.experienceList = experienceList;
-    }
+    private final String name;
+    private final String url;
+    private final List<Experience> experiences;
 
-    public List<Experience> getExperienceList() {
-        return experienceList;
+    public Organization(String name, String url, List<Experience> experiences) {
+        this.name = name;
+        this.url = url;
+        this.experiences = experiences;
     }
 
     @Override
@@ -20,21 +20,20 @@ public class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return experienceList != null ? experienceList.equals(that.experienceList) : that.experienceList == null;
+        return Objects.equals(name, that.name) && Objects.equals(url, that.url) && Objects.equals(experiences, that.experiences);
     }
 
     @Override
     public int hashCode() {
-        return experienceList != null ? experienceList.hashCode() : 0;
+        return Objects.hash(name, url, experiences);
     }
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (Experience s : this.experienceList) {
-            result.append("*").append(s).append("\n");
-        }
-        return result.toString();
-
+        return "Organization{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", experiences=" + experiences +
+                '}';
     }
 }

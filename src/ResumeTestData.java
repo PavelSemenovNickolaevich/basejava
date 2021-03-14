@@ -27,31 +27,31 @@ public class ResumeTestData {
         qualification.add("Python");
         qualification.add("JavaScript");
 
-        ListOfExperience firstStudy = new ListOfExperience(dateBeginOne, dateEndOne, "Test1", "Test1");
-        ListOfExperience secondStudy = new ListOfExperience(dateBeginTwo, dateEndTwo, "Test2", "Test2");
+        Experience firstStudy = new Experience(dateBeginOne, dateEndOne, "Test1", "Test1");
+        Experience secondStudy = new Experience(dateBeginTwo, dateEndTwo, "Test2", "Test2");
 
-        ListOfExperience firstWork = new ListOfExperience(dateBeginWork1, dateEndWork1, "Test1", "Test1");
-        ListOfExperience secondWork = new ListOfExperience(dateBeginWork2, dateEndWork2, "Test2", "Test2");
+        Experience firstWork = new Experience(dateBeginWork1, dateEndWork1, "Test1", "Test1");
+        Experience secondWork = new Experience(dateBeginWork2, dateEndWork2, "Test2", "Test2");
 
-        List<ListOfExperience> differentPeriodsOfStudy = new ArrayList<>();
+        List<Experience> differentPeriodsOfStudy = new ArrayList<>();
         differentPeriodsOfStudy.add(firstStudy);
         differentPeriodsOfStudy.add(secondStudy);
 
-        List<ListOfExperience> differentPeriodsOfWork = new ArrayList<>();
+        List<Experience> differentPeriodsOfWork = new ArrayList<>();
         differentPeriodsOfWork.add(firstWork);
         differentPeriodsOfWork.add(secondWork);
 
-        Experience experienceOne = new Experience("M_G_U", differentPeriodsOfStudy);
-        Experience experienceTwo = new Experience("Parlament", differentPeriodsOfWork);
+        Organization experienceOne = new Organization("M_G_U", "www.exampleOne1.ru", differentPeriodsOfStudy);
+        Organization experienceTwo = new Organization("Parlament", "www.exampleOne2.ru", differentPeriodsOfWork);
 
-        List<Experience> educationList = new ArrayList<>();
+        List<Organization> educationList = new ArrayList<>();
         educationList.add(experienceOne);
 
-        List<Experience> workerList = new ArrayList<>();
+        List<Organization> workerList = new ArrayList<>();
         workerList.add(experienceTwo);
 
-        Organization organizationOne = new Organization(educationList);
-        Organization organizationEduOne = new Organization(workerList);
+        OrganizationSection organizationOne = new OrganizationSection(educationList);
+        OrganizationSection organizationEduOne = new OrganizationSection(workerList);
 
         Resume resumeTest = new Resume("1", "Ivanov Ivan");
         System.out.println(resumeTest.getFullName());

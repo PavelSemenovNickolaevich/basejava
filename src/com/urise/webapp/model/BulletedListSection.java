@@ -24,15 +24,13 @@ public class BulletedListSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         BulletedListSection that = (BulletedListSection) o;
-
-        return text != null ? text.equals(that.text) : that.text == null;
+        return Objects.equals(text, that.text);
     }
 
     @Override
     public int hashCode() {
-        return text != null ? text.hashCode() : 0;
+        return Objects.hash(text);
     }
 
     @Override
