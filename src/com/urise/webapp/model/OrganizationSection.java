@@ -1,9 +1,10 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class OrganizationSection {
+public class OrganizationSection extends AbstractSection{
     private final List<Organization> experienceList;
 
     public OrganizationSection(List<Organization> experienceList) {

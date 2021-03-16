@@ -46,8 +46,8 @@ public class MapUuidStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected boolean isExist(String searchKey) {
-        return resumeMap.containsKey(searchKey);
+    protected boolean isExist(String uuid) {
+        return resumeMap.containsKey(uuid);
     }
 
     @Override

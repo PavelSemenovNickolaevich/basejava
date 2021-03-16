@@ -1,9 +1,10 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization extends AbstractSection {
+public class Organization {
 
     private final String name;
     private final String url;

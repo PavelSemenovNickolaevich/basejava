@@ -86,4 +86,13 @@ public class Resume implements Comparable<Resume> {
         return (res == 0) ? uuid.compareTo(o.uuid) : fullName.compareTo(o.fullName);
     }
 
+    public void addContact(ContactsType type, String info) {
+        contacts.put(type, info);
+    }
+
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
+
+
 }

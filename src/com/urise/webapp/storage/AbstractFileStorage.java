@@ -5,11 +5,12 @@ import com.urise.webapp.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
-    private File directory;
+    private final File directory;
 
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory must be null");
@@ -41,18 +42,25 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected abstract void doWrite(Resume resume, File file) throws IOException;
 
     @Override
-    protected void doUpdate(Resume resume, File searchKey) {
+    protected void doUpdate(Resume resume, File file) {
+        try {
+            doWrite(resume, file);
+        } catch (IOException e) {
+            throw new StorageException("File with error", file.getName(), e);
+        }
 
     }
 
     @Override
-    protected Resume doGet(File searchKey) {
-        return null;
+    protected Resume doGet(File file) {
+        return doRead(file);
     }
 
-    @Override
-    protected void doDelete(File searchKey) {
+    protected abstract Resume doRead(File file);
 
+    @Override
+    protected void doDelete(File file) {
+        file.delete();
     }
 
     @Override
@@ -62,16 +70,30 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        return null;
+        File[] files = directory.listFiles();
+        List<Resume> resumes = null;
+        if (files != null) {
+            resumes = new ArrayList<>(files.length);
+        }
+        for (File file : files) {
+            resumes.add(doGet(file));
+        }
+        return resumes;
     }
 
     @Override
     public void clear() {
-
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                file.delete();
+            }
+        }
     }
 
     @Override
     public int size() {
-        return 0;
+        String[] files = directory.list();
+        return files.length;
     }
 }
