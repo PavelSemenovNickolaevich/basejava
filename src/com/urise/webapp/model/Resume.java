@@ -42,6 +42,14 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
+    public void addContact(ContactsType type, String info) {
+        contacts.put(type, info);
+    }
+
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
+
 //    public void setUuid(String uuid) {
 //        this.uuid = uuid;
 //    }
@@ -51,25 +59,22 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
+    public int compareTo(Resume o) {
+        int res = fullName.compareTo(o.fullName);
+        return (res == 0) ? uuid.compareTo(o.uuid) : fullName.compareTo(o.fullName);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Resume resume = (Resume) o;
-
-        if (uuid != null ? !uuid.equals(resume.uuid) : resume.uuid != null) return false;
-        if (fullName != null ? !fullName.equals(resume.fullName) : resume.fullName != null) return false;
-        if (contacts != null ? !contacts.equals(resume.contacts) : resume.contacts != null) return false;
-        return sections != null ? sections.equals(resume.sections) : resume.sections == null;
+        return Objects.equals(uuid, resume.uuid) && Objects.equals(fullName, resume.fullName) && Objects.equals(contacts, resume.contacts) && Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (contacts != null ? contacts.hashCode() : 0);
-        result = 31 * result + (sections != null ? sections.hashCode() : 0);
-        return result;
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override
@@ -77,22 +82,8 @@ public class Resume implements Comparable<Resume> {
         return "Resume{" +
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
                 '}';
     }
-
-    @Override
-    public int compareTo(Resume o) {
-        int res = fullName.compareTo(o.fullName);
-        return (res == 0) ? uuid.compareTo(o.uuid) : fullName.compareTo(o.fullName);
-    }
-
-    public void addContact(ContactsType type, String info) {
-        contacts.put(type, info);
-    }
-
-    public void addSection(SectionType type, AbstractSection section) {
-        sections.put(type, section);
-    }
-
-
 }

@@ -16,6 +16,10 @@ public class Organization {
         this.experiences = experiences;
     }
 
+    public Organization(String name, String url, Experience...experiences) {
+        this(name, url, Arrays.asList(experiences));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

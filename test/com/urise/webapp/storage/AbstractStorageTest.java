@@ -103,7 +103,6 @@ public abstract class AbstractStorageTest {
         });
     }
 
-
     @Test
     @DisplayName("Get all resumes")
     void getAllSorted() throws Exception {
@@ -125,19 +124,6 @@ public abstract class AbstractStorageTest {
             storage.get("dummy");
         });
     }
-
-//    @Test
-//    @DisplayName("Storage of resume is overflow")
-//    public void saveOverflow() throws Exception {
-//        try {
-//            for (int i = 3; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-//                storage.save(new Resume());
-//            }
-//        } catch (StorageException e) {
-//            Assertions.fail("Overflow before time!");
-//        }
-//        Assertions.assertThrows(StorageException.class, () -> storage.save(new Resume()));
-//    }
 
     private void assertSize(int size) {
         Assertions.assertEquals(size, storage.size());

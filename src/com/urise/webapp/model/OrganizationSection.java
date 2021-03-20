@@ -12,6 +12,10 @@ public class OrganizationSection extends AbstractSection{
         this.experienceList = experienceList;
     }
 
+    public OrganizationSection(Organization...organizations) {
+        this(Arrays.asList(organizations));
+    }
+
     public List<Organization> getExperienceList() {
         return experienceList;
     }
