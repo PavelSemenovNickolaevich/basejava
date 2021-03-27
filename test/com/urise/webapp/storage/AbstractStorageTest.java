@@ -8,10 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
+
+   // protected static final File STORAGE_DIR = new File("C:\\Users\\Paul\\IdeaProjects\\basejava\\storage\\");
+    protected static final File STORAGE_DIR = new File("storage");
 
     public final Storage storage;
 
