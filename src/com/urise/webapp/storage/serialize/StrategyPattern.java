@@ -1,11 +1,11 @@
-package com.urise.webapp.storage.taskWithStrategy;
+package com.urise.webapp.storage.serialize;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.io.*;
 
-public class Strategy implements SerializeStrategy {
+public class StrategyPattern implements SerializeStrategy {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {

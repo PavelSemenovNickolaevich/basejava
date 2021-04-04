@@ -32,11 +32,11 @@ public class ResumeTestData {
         resumeTest.addSection(SectionType.ACHIEVEMENT, new BulletedListSection("333432", "332432432"));
         resumeTest.addSection(SectionType.QUALIFICATIONS, new BulletedListSection("Test", "Test2"));
         resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
-                , new Experience(dateBeginOne, dateEndOne, "Title", "Description")
-                , new Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
+                , new Organization.Experience(dateBeginOne, dateEndOne, "Title", "Description")
+                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
         resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
-                , new Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
-                , new Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
+                , new Organization.Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
+                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
         return resumeTest;
     }
 }

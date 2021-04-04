@@ -2,18 +2,20 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.taskWithStrategy.SerializeStrategy;
+import com.urise.webapp.storage.serialize.SerializeStrategy;
+import com.urise.webapp.storage.serialize.StrategyPattern;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class ObjectStreamFileStorage extends AbstractStorage<File> {
     private final File directory;
     private SerializeStrategy serializeStrategy;
+    private StrategyPattern strategyPattern;
 
-    protected AbstractFileStorage(File directory, SerializeStrategy serializeStrategy) {
+    protected ObjectStreamFileStorage(File directory, SerializeStrategy serializeStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
@@ -34,7 +36,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume resume, File file) {
         try {
             file.createNewFile();
-         //   doWrite(resume,new BufferedOutputStream(new FileOutputStream(file)));
+            //   doWrite(resume,new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Couldn't create file " + file.getAbsolutePath(), file.getName(), e);
         }
@@ -44,7 +46,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(Resume resume, File file) {
         try {
-           serializeStrategy.doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
+            serializeStrategy.doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File with error", resume.getUuid(), e);
         }
@@ -54,7 +56,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume doGet(File file) {
         try {
-           return serializeStrategy.doRead(new BufferedInputStream(new FileInputStream(file)));
+            return serializeStrategy.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read error", file.getName(), e);
         }
@@ -62,9 +64,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doDelete(File file) {
-        if (!file.delete()) {
-            throw new StorageException("File delete error", file.getName());
-        }
+        isCheckEqualsNull(!file.delete(), "File delete error", file.getName());
     }
 
     @Override
@@ -75,11 +75,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> doCopyAll() {
         File[] files = directory.listFiles();
-        if(files == null) {
-            throw new StorageException("Directory is null", null);
-        }
-        List<Resume>list = new ArrayList<>(files.length);
-        for(File file: files) {
+        isCheckEqualsNull(files == null, "Directory is null", null);
+        List<Resume> list = new ArrayList<>(files.length);
+        for (File file : files) {
             list.add(doGet(file));
         }
         return list;
@@ -88,19 +86,22 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
+        isCheckEqualsNull(files == null, "Directory is null", null);
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
         String[] files = directory.list();
-        if( files == null) {
-            throw new StorageException("Directory read error", null);
-        }
+        isCheckEqualsNull(files == null, "Directory read error", null);
         return files.length;
+    }
+
+    private void isCheckEqualsNull(boolean condition, String message, String object) {
+        if (condition) {
+            throw new StorageException(message, object);
+        }
     }
 }

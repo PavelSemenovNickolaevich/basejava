@@ -1,10 +1,10 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.storage.taskWithStrategy.Strategy;
+import com.urise.webapp.storage.serialize.StrategyPattern;
 
 public class ObjectStreamStorageTest extends AbstractStorageTest{
 
     public ObjectStreamStorageTest() {
-        super(new ObjectStreamStorage(STORAGE_DIR, new Strategy()));
+        super(new ObjectStreamFileStorage(STORAGE_DIR, new StrategyPattern()));
     }
 }
