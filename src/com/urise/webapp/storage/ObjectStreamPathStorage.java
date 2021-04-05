@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ObjectStreamPathStorage extends AbstractStorage<Path> {
     private SerializeStrategy serializeStrategy;
@@ -80,7 +81,7 @@ public class ObjectStreamPathStorage extends AbstractStorage<Path> {
     @Override
     protected List<Resume> doCopyAll() {
         try {
-            return Files.list(directory).map(this::doGet).collect(Collectors.toList());
+            return getList().map(this::doGet).collect(Collectors.toList());
         } catch (IOException e) {
             throw new StorageException("Path copy error", null);
         }
@@ -89,7 +90,7 @@ public class ObjectStreamPathStorage extends AbstractStorage<Path> {
     @Override
     public void clear() {
         try {
-            Files.list(directory).forEach(this::doDelete);
+            getList().forEach(this::doDelete);
         } catch (IOException e) {
             throw new StorageException("Path delete error", null);
         }
@@ -98,7 +99,7 @@ public class ObjectStreamPathStorage extends AbstractStorage<Path> {
     @Override
     public int size() {
         try {
-            return (int) Files.list(directory).count();
+            return (int) getList().count();
         } catch (IOException e) {
             throw new StorageException("Directory read error", null);
         }
@@ -106,5 +107,9 @@ public class ObjectStreamPathStorage extends AbstractStorage<Path> {
 
     private String getFileName(Path path) {
         return String.valueOf(path.getFileName());
+    }
+
+    private Stream<Path> getList() throws IOException {
+        return Files.list(directory);
     }
 }
