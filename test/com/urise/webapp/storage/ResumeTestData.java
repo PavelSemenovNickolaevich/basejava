@@ -17,7 +17,7 @@ public class ResumeTestData {
     static LocalDate dateBeginWork2 = LocalDate.of(2000, 10, 31);
     static LocalDate dateEndWork2 = LocalDate.of(2002, 10, 31);
 
-    public Resume createResume(String uuid, String name) {
+    public static Resume createResume(String uuid, String name) {
 
         Resume resumeTest = new Resume(uuid, name);
         resumeTest.addContact(ContactsType.PHONE, "1234567890");

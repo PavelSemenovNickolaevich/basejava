@@ -12,6 +12,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.urise.webapp.storage.ResumeTestData.createResume;
+
 public abstract class AbstractStorageTest {
 
    // protected static final File STORAGE_DIR = new File("C:\\Users\\Paul\\IdeaProjects\\basejava\\storage\\");
@@ -30,10 +32,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new ResumeTestData().createResume(UUID_1, "FullName1");
-        RESUME_2 = new ResumeTestData().createResume(UUID_2, "FullName2");
-        RESUME_3 = new ResumeTestData().createResume(UUID_3, "FullName3");
-        RESUME_4 = new ResumeTestData().createResume(UUID_4, "FullName4");
+        RESUME_1 = createResume(UUID_1, "FullName1");
+        RESUME_2 = createResume(UUID_2, "FullName2");
+        RESUME_3 = createResume(UUID_3, "FullName3");
+        RESUME_4 = createResume(UUID_4, "FullName4");
     }
 
     public AbstractStorageTest(Storage storage) {
