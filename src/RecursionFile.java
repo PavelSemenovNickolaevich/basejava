@@ -16,7 +16,7 @@ public class RecursionFile {
                     System.out.println(str + "File: " + file.getName());
                 if (file.isDirectory()) {
                     System.out.println(str + "Directory: " + file.getName());
-                    recursionDirectory(file, str + str);
+                    recursionDirectory(file, str + " ");
                 }
             }
         }

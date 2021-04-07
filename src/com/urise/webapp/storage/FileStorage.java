@@ -82,10 +82,8 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        if (getFiles() != null) {
-            for (File file : getFiles()) {
-                doDelete(file);
-            }
+        for (File file : getFiles()) {
+            doDelete(file);
         }
     }
 
@@ -95,10 +93,11 @@ public class FileStorage extends AbstractStorage<File> {
     }
 
     private File[] getFiles() {
-        if (directory.listFiles() == null) {
+        File[] files = directory.listFiles();
+        if (files == null) {
             throw new StorageException("Directory read error");
         }
-        return directory.listFiles();
+        return files;
     }
 }
 
