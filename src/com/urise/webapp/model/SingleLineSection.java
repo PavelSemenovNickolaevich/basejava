@@ -1,10 +1,17 @@
 package com.urise.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.Objects;
+
+
 
 public class SingleLineSection extends AbstractSection {
 
     private String text;
+
+    public SingleLineSection(){
+    }
 
     public SingleLineSection(String text) {
         Objects.requireNonNull(text, "text must not be null");

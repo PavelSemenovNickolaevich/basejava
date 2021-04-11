@@ -16,7 +16,6 @@ import static com.urise.webapp.storage.ResumeTestData.createResume;
 
 public abstract class AbstractStorageTest {
 
-   // protected static final File STORAGE_DIR = new File("C:\\Users\\Paul\\IdeaProjects\\basejava\\storage\\");
     protected static final File STORAGE_DIR = new File("storage");
 
     public final Storage storage;

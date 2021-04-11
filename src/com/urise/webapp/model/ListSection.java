@@ -1,21 +1,25 @@
 package com.urise.webapp.model;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class BulletedListSection extends AbstractSection {
+public class ListSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
 
     private List<String> text;
 
-    public BulletedListSection(List<String> text) {
+    public ListSection() {
+    }
+
+    public ListSection(List<String> text) {
         Objects.requireNonNull(text, "experience must not be null");
         this.text = text;
     }
 
-    public BulletedListSection(String...text) {
+    public ListSection(String...text) {
         this(Arrays.asList(text));
     }
 
@@ -31,7 +35,7 @@ public class BulletedListSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BulletedListSection that = (BulletedListSection) o;
+        ListSection that = (ListSection) o;
         return Objects.equals(text, that.text);
     }
 
