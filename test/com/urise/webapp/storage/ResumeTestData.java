@@ -29,16 +29,18 @@ public class ResumeTestData {
         resumeTest.addContact(ContactsType.HOMEPAGE, "Test");
         resumeTest.addSection(SectionType.PERSONAL, new SingleLineSection("Test"));
         resumeTest.addSection(SectionType.OBJECTIVE, new SingleLineSection("Test2"));
-        resumeTest.addSection(SectionType.ACHIEVEMENT, new ListSection("333432", "332432432"));
+        resumeTest.addSection(SectionType.ACHIEVEMENT, new ListSection("333432", "332432432" ));
         resumeTest.addSection(SectionType.QUALIFICATIONS, new ListSection("Test", "Test2"));
-        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
-                , new Organization.Experience(dateBeginOne, dateEndOne, "Title", "Description")
-                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
-        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
-                , new Organization.Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
-                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
-        return resumeTest;
+//        resumeTest.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Test", "123"
+//                , new Organization.Experience(dateBeginOne, dateEndOne, "Title", "Description")
+//                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
+//        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
+//                , new Organization.Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
+//                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
+       return resumeTest;
+
     }
 }
+
 
 

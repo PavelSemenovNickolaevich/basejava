@@ -30,6 +30,14 @@ public class Resume implements Comparable<Resume>, Serializable {
     public Resume() {
     }
 
+    public Map<ContactsType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }

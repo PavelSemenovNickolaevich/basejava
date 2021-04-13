@@ -38,7 +38,7 @@ public class SingleLineSection extends AbstractSection {
 
         SingleLineSection that = (SingleLineSection) o;
 
-        return text != null ? text.equals(that.text) : that.text == null;
+        return Objects.equals(text, that.text);
     }
 
     @Override
