@@ -3,9 +3,7 @@ package com.urise.webapp.storage.serialize;
 import com.urise.webapp.model.*;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,34 +22,18 @@ public class DataStreamSerializer implements SerializeStrategy {
             for (Map.Entry<SectionType, AbstractSection> entry : r.getSections().entrySet()) {
                 SectionType type = entry.getKey();
                 AbstractSection section = entry.getValue();
-                if (type.equals(SectionType.PERSONAL)) {
-                    dos.writeUTF(entry.getKey().name());
-                    dos.writeUTF(String.valueOf(section));
-                    continue;
-
-                }
-                if (type.equals(SectionType.OBJECTIVE)) {
-                    dos.writeUTF(entry.getKey().name());
-                    dos.writeUTF(String.valueOf(section));
-                    continue;
-
-                }
-                if (type.equals(SectionType.ACHIEVEMENT)) {
-                    dos.writeUTF(entry.getKey().name());
-                  //  List<String> list = Collections.singletonList(String.valueOf(section));
-                    List<String> list = Arrays.asList(String.valueOf(section));
-                    for (String value : list) {
-                        dos.writeUTF(value);
-                    }
-                    continue;
-                }
-                if (type.equals(SectionType.QUALIFICATIONS)) {
-                    dos.writeUTF(entry.getKey().name());
-       //             List<String> list = Collections.singletonList(String.valueOf(section));
-                    List<String> list = Arrays.asList(String.valueOf(section));
-                    for (String value : list) {
-                        dos.writeUTF(value);
-                    }
+                switch (type) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        dos.writeUTF(entry.getKey().name());
+                        dos.writeUTF(((SingleLineSection) section).getText());
+                        continue;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        dos.writeUTF(entry.getKey().name());
+                        for (String value : ((ListSection) section).getText()) {
+                            dos.writeUTF(value);
+                        }
                 }
             }
             //TODO implements sections
@@ -72,20 +54,26 @@ public class DataStreamSerializer implements SerializeStrategy {
             }
             for (int i = 0; i < 4; i++) {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
-                if (sectionType.equals(SectionType.PERSONAL)) {
-                    resume.addSection(sectionType, new SingleLineSection(dis.readUTF()));
-                }
-                if (sectionType.equals(SectionType.OBJECTIVE)) {
-                    resume.addSection(sectionType, new SingleLineSection(dis.readUTF()));
-                }
-                if (sectionType.equals(SectionType.ACHIEVEMENT)) {
-                    resume.addSection(sectionType, new ListSection(dis.readUTF()));
-                }
-                if (sectionType.equals(SectionType.QUALIFICATIONS)) {
-                    resume.addSection(sectionType, new ListSection(dis.readUTF()));
+                switch (sectionType) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        resume.addSection(sectionType, new SingleLineSection(dis.readUTF()));
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        resume.addSection(sectionType, new ListSection(readListSection(dis, dis.readUTF()));
                 }
             }
             return resume;
         }
     }
+
+    private List<String> readListSection(DataInputStream dis, String readUTF) throws IOException {
+        int size = dis.readInt();
+        List<String> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(readUTF);
+        }
+        return list;
+    }
+
 }

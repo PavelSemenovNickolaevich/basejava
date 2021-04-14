@@ -58,7 +58,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             return serializeStrategy.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
-            throw new StorageException("Path read error", getFileName(path), e);
+            throw new StorageException("Path read error " + getFileName(path), getFileName(path), e);
         }
     }
 
