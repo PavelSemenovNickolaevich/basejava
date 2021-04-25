@@ -15,9 +15,9 @@ import java.util.Objects;
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private  String name;
-    private  String url;
-    private  List<Experience> experiences;
+    private String name;
+    private String url;
+    private List<Experience> experiences;
 
     public Organization() {
     }
@@ -40,6 +40,34 @@ public class Organization implements Serializable {
         return Objects.equals(name, that.name) && Objects.equals(url, that.url) && Objects.equals(experiences, that.experiences);
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<Experience> getExperiences() {
+        return experiences;
+    }
+
+    public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, url, experiences);
@@ -58,13 +86,13 @@ public class Organization implements Serializable {
     public static class Experience implements Serializable {
         private static final long serialVersionUID = 1L;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
-        private  LocalDate beginDate;
+        private LocalDate beginDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
-        private  LocalDate endDate;
-        private  String title;
-        private  String description;
+        private LocalDate endDate;
+        private String title;
+        private String description;
 
-        public Experience() {
+        public Experience(Object o) {
         }
 
         public Experience(LocalDate beginDate, LocalDate endDate, String title, String description) {
@@ -76,6 +104,7 @@ public class Organization implements Serializable {
             this.title = title;
             this.description = description;
         }
+
 
         public LocalDate getBeginDate() {
             return beginDate;

@@ -27,17 +27,17 @@ public class ResumeTestData {
         resumeTest.addContact(ContactsType.GITHUB, "Github");
         resumeTest.addContact(ContactsType.STACKOVERFLOW, "Test");
         resumeTest.addContact(ContactsType.HOMEPAGE, "Test");
-        resumeTest.addSection(SectionType.PERSONAL, new SingleLineSection("Test"));
-        resumeTest.addSection(SectionType.OBJECTIVE, new SingleLineSection("Test2"));
-        resumeTest.addSection(SectionType.ACHIEVEMENT, new ListSection("333432", "332432432" ));
-        resumeTest.addSection(SectionType.QUALIFICATIONS, new ListSection("Test", "Test2"));
-//        resumeTest.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Test", "123"
-//                , new Organization.Experience(dateBeginOne, dateEndOne, "Title", "Description")
-//                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
-//        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
-//                , new Organization.Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
-//                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
-       return resumeTest;
+        resumeTest.addSection(SectionType.PERSONAL, new SingleLineSection("Личные качества"));
+        resumeTest.addSection(SectionType.OBJECTIVE, new SingleLineSection("Позиция"));
+        resumeTest.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement1", "Achievement2"));
+        resumeTest.addSection(SectionType.QUALIFICATIONS, new ListSection("Qualifications1", "Qualifications2"));
+        resumeTest.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Education1", "123@gmail.com"
+                , new Organization.Experience(dateBeginOne, dateEndOne, "Title1", "Description1")
+                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test2", "Description2"))));
+        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
+                , new Organization.Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
+                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
+        return resumeTest;
 
     }
 }
