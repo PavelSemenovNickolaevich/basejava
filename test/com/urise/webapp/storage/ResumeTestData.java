@@ -8,12 +8,12 @@ public class ResumeTestData {
 
     static String person = "Смелый, ловкий, умелый!";
     static String objective = "Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям";
-    static LocalDate dateBeginOne = LocalDate.of(2000, 12, 31);
-    static LocalDate dateEndOne = LocalDate.of(2021, 12, 31);
-    static LocalDate dateBeginTwo = LocalDate.of(2010, 12, 31);
-    static LocalDate dateEndTwo = LocalDate.of(2019, 10, 31);
-    static LocalDate dateBeginWork1 = LocalDate.of(1990, 10, 31);
-    static LocalDate dateEndWork1 = LocalDate.of(1999, 10, 31);
+    static LocalDate dateBeginOne = LocalDate.of(2000, 12, 15);
+    static LocalDate dateEndOne = LocalDate.of(2021, 12, 15);
+    static LocalDate dateBeginTwo = LocalDate.of(2010, 12, 15);
+    static LocalDate dateEndTwo = LocalDate.of(2019, 10, 15);
+    static LocalDate dateBeginWork1 = LocalDate.of(1990, 10, 15);
+    static LocalDate dateEndWork1 = LocalDate.of(1999, 10, 15);
     static LocalDate dateBeginWork2 = LocalDate.of(2000, 10, 31);
     static LocalDate dateEndWork2 = LocalDate.of(2002, 10, 31);
 
@@ -33,10 +33,10 @@ public class ResumeTestData {
         resumeTest.addSection(SectionType.QUALIFICATIONS, new ListSection("Qualifications1", "Qualifications2"));
         resumeTest.addSection(SectionType.EDUCATION, new OrganizationSection(new Organization("Education1", "123@gmail.com"
                 , new Organization.Experience(dateBeginOne, dateEndOne, "Title1", "Description1")
-                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test2", "Description2"))));
-        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Test", "123"
+                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Title2", "Description2"))));
+        resumeTest.addSection(SectionType.EXPERIENCE, new OrganizationSection(new Organization("Experience1", "321@mail.com"
                 , new Organization.Experience(dateBeginTwo, dateEndTwo, "Title1", "Description1")
-                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Test", "Test"))));
+                , new Organization.Experience(dateBeginWork1, dateEndWork1, "Title2", "Description2"))));
         return resumeTest;
 
     }
