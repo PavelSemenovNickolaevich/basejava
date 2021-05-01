@@ -24,7 +24,11 @@ public class Organization implements Serializable {
 
     public Organization(String name, String url, List<Experience> experiences) {
         this.name = name;
-        this.url = url;
+        if (url == null) {
+            this.url = " ";
+        } else {
+            this.url = url;
+        }
         this.experiences = experiences;
     }
 
@@ -102,7 +106,11 @@ public class Organization implements Serializable {
             this.beginDate = beginDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description;
+            if (description == null) {
+                this.description = "";
+            } else {
+                this.description = description;
+            }
         }
 
 

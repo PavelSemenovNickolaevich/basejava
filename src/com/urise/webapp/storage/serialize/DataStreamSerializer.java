@@ -5,8 +5,8 @@ import com.urise.webapp.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class DataStreamSerializer implements SerializeStrategy {
 
@@ -15,53 +15,55 @@ public class DataStreamSerializer implements SerializeStrategy {
         try (DataOutputStream dos = new DataOutputStream(os)) {
             dos.writeUTF(r.getUuid());
             dos.writeUTF(r.getFullName());
-            Map<ContactsType, String> contacts = r.getContacts();
-            dos.writeInt(contacts.size());
-            for (Map.Entry<ContactsType, String> entry : r.getContacts().entrySet()) {
+            writeWithExeption(dos, r.getContacts().entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
-            }
-            Map<SectionType, AbstractSection> sections = r.getSections();
-            dos.writeInt(sections.size());
-            for (Map.Entry<SectionType, AbstractSection> entry : r.getSections().entrySet()) {
+            });
+            writeWithExeption(dos, r.getSections().entrySet(), entry -> {
                 SectionType type = entry.getKey();
                 AbstractSection section = entry.getValue();
+                String name = entry.getKey().name();
                 switch (type) {
                     case PERSONAL:
                     case OBJECTIVE:
-                        dos.writeUTF(entry.getKey().name());
+                        dos.writeUTF(name);
                         dos.writeUTF(((SingleLineSection) section).getText());
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        dos.writeUTF(entry.getKey().name());
-                        List<String> list = ((ListSection) section).getText();
-                        dos.writeInt(list.size());
-                        for (String value : ((ListSection) section).getText()) {
+                        dos.writeUTF(name);
+                        writeWithExeption(dos, ((ListSection) section).getText(), value -> {
                             dos.writeUTF(value);
-                        }
+                        });
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
-                        dos.writeUTF(entry.getKey().name());
-                        List<Organization> organizationsListSize = ((OrganizationSection) section).getExperienceList();
-                        dos.writeInt(organizationsListSize.size());
-                        for (Organization organization : ((OrganizationSection) section).getExperienceList()) {
+                        dos.writeUTF(name);
+                        writeWithExeption(dos, ((OrganizationSection) section).getExperienceList(), organization -> {
                             dos.writeUTF(organization.getName());
                             dos.writeUTF(organization.getUrl());
-                            List<Organization.Experience> experiencesSize = organization.getExperiences();
-                            dos.writeInt(experiencesSize.size());
-                            for (Organization.Experience value : organization.getExperiences()) {
+                            writeWithExeption(dos, organization.getExperiences(), value -> {
                                 writeDate(dos, value.getBeginDate());
                                 writeDate(dos, value.getEndDate());
                                 dos.writeUTF(value.getTitle());
                                 dos.writeUTF(value.getDescription());
-                            }
-                        }
+                            });
+                        });
                         break;
                 }
-            }
+            });
         }
+    }
+
+    private <T> void writeWithExeption(DataOutputStream dos, Collection<T> collection, Consumer<T> write) throws IOException {
+        dos.writeInt(collection.size());
+        for (T t : collection) {
+            write.write(t);
+        }
+    }
+
+    public interface Consumer<T> {
+        void write(T t) throws IOException;
     }
 
     private void writeDate(DataOutputStream dos, LocalDate date) throws IOException {
@@ -96,7 +98,13 @@ public class DataStreamSerializer implements SerializeStrategy {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        resume.addSection(sectionType, new ListSection(readListSection(dis)));
+                        List<String> listSection = new ArrayList<>();
+                        int listSize = dis.readInt();
+                        for (int c = 0; c < listSize; c++) {
+                            listSection.add(dis.readUTF());
+                        }
+                        //                      resume.addSection(sectionType, new ListSection(readListSection(dis)));
+                        resume.addSection(sectionType, new ListSection(listSection));
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
