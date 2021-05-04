@@ -1,5 +1,9 @@
 import com.urise.webapp.model.SectionType;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class TestSingleton {
     // private static TestSingleton instance = new TestSingleton();
     private static TestSingleton instance;
@@ -22,9 +26,15 @@ public class TestSingleton {
         for (SectionType type : SectionType.values()) {
             System.out.println(type.getTitle());
         }
+
+        List<String> array = new ArrayList<>();
+        Collections.addAll(array, "Test", "Test2", "Test3");
+        array.forEach((s) -> System.out.println(s));
+
     }
 
     public enum Singleton {
         INSTANCE
     }
+
 }
