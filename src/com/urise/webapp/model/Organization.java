@@ -24,11 +24,6 @@ public class Organization implements Serializable {
 
     public Organization(String name, String url, List<Experience> experiences) {
         this.name = name;
-//        if (url == null) {
-//            this.url = " ";
-//        } else {
-//            this.url = url;
-//        }
         this.url = url == null ? "" : url;
         this.experiences = experiences;
     }
@@ -101,6 +96,9 @@ public class Organization implements Serializable {
         public Experience(Object o) {
         }
 
+        public Experience() {
+        }
+
         public Experience(LocalDate beginDate, LocalDate endDate, String title, String description) {
             Objects.requireNonNull(beginDate, "startDate must not be null");
             Objects.requireNonNull(endDate, "endDate must not be null");
@@ -108,11 +106,6 @@ public class Organization implements Serializable {
             this.beginDate = beginDate;
             this.endDate = endDate;
             this.title = title;
-//            if (description == null) {
-//                this.description = "";
-//            } else {
-//                this.description = description;
- //           }
             this.description = description == null ? "" : description;
         }
 

@@ -97,10 +97,7 @@ public class DataStreamSerializer implements SerializeStrategy {
                 return new ListSection((readListSection(dis)));
             case EDUCATION:
             case EXPERIENCE:
-                return new OrganizationSection(readList(dis
-                        , () -> new Organization(dis.readUTF(), dis.readUTF()
-                        , readList(dis
-                                , () -> new Organization.Experience(readDate(dis), readDate(dis), dis.readUTF(), dis.readUTF())))));
+                return new OrganizationSection(readList(dis, () -> new Organization(dis.readUTF(), dis.readUTF(), readList(dis, () -> new Organization.Experience(readDate(dis), readDate(dis), dis.readUTF(), dis.readUTF())))));
         }
         return null;
     }
@@ -119,7 +116,7 @@ public class DataStreamSerializer implements SerializeStrategy {
 
     private<T> List readList(DataInputStream dis, Supplier<T> supplier) throws IOException {
         int size = dis.readInt();
-        List<Object> list = new ArrayList<>(size);
+        List<T> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             list.add(supplier.get());
         }
