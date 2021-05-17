@@ -97,7 +97,8 @@ public class DataStreamSerializer implements SerializeStrategy {
                 return new ListSection((readListSection(dis)));
             case EDUCATION:
             case EXPERIENCE:
-                return new OrganizationSection(readList(dis, () -> new Organization(dis.readUTF(), dis.readUTF(), readList(dis, () -> new Organization.Experience(readDate(dis), readDate(dis), dis.readUTF(), dis.readUTF())))));
+                return new OrganizationSection(readList(dis, () -> new Organization(dis.readUTF(), dis.readUTF(), readList(dis
+                        , () -> new Organization.Experience(readDate(dis), readDate(dis), dis.readUTF(), dis.readUTF())))));
         }
         return null;
     }
