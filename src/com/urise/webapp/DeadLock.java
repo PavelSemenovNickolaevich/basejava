@@ -17,6 +17,11 @@ class DeadLock {
                 System.out.println(Thread.currentThread().getName() + " try to catch object of monitor " + lock1);
                 synchronized (lock1) {
                     System.out.println(Thread.currentThread().getName() + " monitor of object " + lock1 + " was caught");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(Thread.currentThread().getName() + " try to catch object of monitor  " + lock2);
                     synchronized (lock2) {
                         System.out.println(Thread.currentThread().getName() + " monitor of object " + lock2 + " was caught");
