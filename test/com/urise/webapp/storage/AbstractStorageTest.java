@@ -32,10 +32,15 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = createResume(UUID_1, "FullName1");
-        RESUME_2 = createResume(UUID_2, "FullName2");
-        RESUME_3 = createResume(UUID_3, "FullName3");
-        RESUME_4 = createResume(UUID_4, "FullName4");
+//        RESUME_1 = createResume(UUID_1, "FullName1");
+//        RESUME_2 = createResume(UUID_2, "FullName2");
+//        RESUME_3 = createResume(UUID_3, "FullName3");
+//        RESUME_4 = createResume(UUID_4, "FullName4");
+
+        RESUME_1 = new Resume(UUID_1, "FullName1");
+        RESUME_2 = new Resume(UUID_2, "FullName2");
+        RESUME_3 = new Resume(UUID_3, "FullName3");
+        RESUME_4 = new Resume(UUID_4, "FullName4");
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -115,6 +120,7 @@ public abstract class AbstractStorageTest {
         List<Resume> resumes = storage.getAllSorted();
         Assertions.assertEquals(3, resumes.size());
         Assertions.assertEquals(resumes, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
+
     }
 
     @Test
