@@ -36,7 +36,7 @@ public class SqlStorage implements Storage {
             ps.setString(2, r.getFullName());
             ps.execute();
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw new ExistStorageException("rgrgr");
         }
     }
 
@@ -84,7 +84,7 @@ public class SqlStorage implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         try (Connection conn = connectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume ORDER BY uuid, full_name")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume ORDER BY full_name")) {
             ResultSet rs = ps.executeQuery();
             List<Resume> resumes = new ArrayList<>();
             while (rs.next()) {

@@ -30,6 +30,7 @@ public class Resume implements Comparable<Resume>, Serializable {
     public Resume() {
     }
 
+
     public Map<ContactsType, String> getContacts() {
         return contacts;
     }

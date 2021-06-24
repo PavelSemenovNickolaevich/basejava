@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static com.urise.webapp.storage.ResumeTestData.createResume;
 
@@ -21,15 +22,21 @@ public abstract class AbstractStorageTest {
 
     public final Storage storage;
 
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
+
+//    private static final String UUID_1 = "1";
+//    private static final String UUID_2 = "2";
+//    private static final String UUID_3 =  "3";
+//    private static final String UUID_4 =  "4";
     //
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
     private static final Resume RESUME_3;
     private static final Resume RESUME_4;
+
 
     static {
 //        RESUME_1 = createResume(UUID_1, "FullName1");
@@ -37,6 +44,7 @@ public abstract class AbstractStorageTest {
 //        RESUME_3 = createResume(UUID_3, "FullName3");
 //        RESUME_4 = createResume(UUID_4, "FullName4");
 
+   //     RESUME_1 = new Resume(UUID_1, "FullName1");
         RESUME_1 = new Resume(UUID_1, "FullName1");
         RESUME_2 = new Resume(UUID_2, "FullName2");
         RESUME_3 = new Resume(UUID_3, "FullName3");
@@ -80,6 +88,7 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check that resume is exist")
     public void saveExist() throws Exception {
         Assertions.assertThrows(ExistStorageException.class, () -> storage.save(RESUME_1));
+
     }
 
     @Test
