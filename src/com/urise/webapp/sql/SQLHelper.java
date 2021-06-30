@@ -7,6 +7,7 @@ import org.postgresql.util.PSQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class SQLHelper {
 
@@ -26,8 +27,8 @@ public class SQLHelper {
             return executer.execute(ps);
         } catch (SQLException e) {
             if (e instanceof PSQLException) {
-                if (e.getSQLState().equals("string")) {
-                    throw  new ExistStorageException("error");
+                if (e.getSQLState().equals("334343")) {
+                    throw  new ExistStorageException(null);
                 }
             }
             throw new StorageException(e);
