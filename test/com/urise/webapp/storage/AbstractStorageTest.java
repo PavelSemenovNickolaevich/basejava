@@ -102,8 +102,9 @@ public abstract class AbstractStorageTest {
     @Test
     @DisplayName("Check that resume doesnt exist for update")
     public void updateNotExist() throws Exception {
+        Resume newResume = new Resume("1234567890", "NewResumeWithFullName1");
         Assertions.assertThrows(NotExistStorageException.class, () -> {
-            storage.get("dummy");
+            storage.update(newResume);
         });
     }
 
