@@ -126,11 +126,11 @@ public class SqlStorage implements Storage {
 
 
     private void insertContact(Connection conn, Resume r) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (type, value, resume_uuid) VALUES (?,?,?)")) {
             for (Map.Entry<ContactsType, String> e : r.getContacts().entrySet()) {
-                ps.setString(1, r.getUuid());
-                ps.setString(2, e.getKey().name());
-                ps.setString(3, e.getValue());
+                ps.setString(1, e.getKey().name());
+                ps.setString(2, e.getValue());
+                ps.setString(3, r.getUuid());
                 ps.addBatch();
             }
             ps.executeBatch();
