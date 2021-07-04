@@ -3,6 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.Config;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.model.ContactsType;
 import com.urise.webapp.model.Resume;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,12 +23,12 @@ public abstract class AbstractStorageTest {
 
     public final Storage storage;
 
-  //  private static final String UUID_1 = UUID.randomUUID().toString();
-    private static final String UUID_1 = "7346e9a7-b774-485d-943a-0fb3040d6c48";
-  //  private static final String UUID_2 = UUID.randomUUID().toString();
-    private static final String UUID_2 = "970d5022-9a00-4d21-b1f3-dc76a222a0b2";
-  //  private static final String UUID_3 = UUID.randomUUID().toString();
-    private static final String UUID_3 = "87d59185-5693-4419-86e5-af2a4cdd498f";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+  //  private static final String UUID_1 = "7346e9a7-b774-485d-943a-0fb3040d6c48";
+    private static final String UUID_2 = UUID.randomUUID().toString();
+  //  private static final String UUID_2 = "970d5022-9a00-4d21-b1f3-dc76a222a0b2";
+    private static final String UUID_3 = UUID.randomUUID().toString();
+  //  private static final String UUID_3 = "87d59185-5693-4419-86e5-af2a4cdd498f";
     private static final String UUID_4 = UUID.randomUUID().toString();
 
 //    private static final String UUID_1 = "1";
@@ -52,6 +53,12 @@ public abstract class AbstractStorageTest {
         RESUME_2 = new Resume(UUID_2, "FullName2");
         RESUME_3 = new Resume(UUID_3, "FullName3");
         RESUME_4 = new Resume(UUID_4, "FullName4");
+
+        RESUME_1.addContact(ContactsType.MAIL, "Mail");
+        RESUME_1.addContact(ContactsType.PHONE, "34444444");
+
+        RESUME_4.addContact(ContactsType.MAIL, "Mail1");
+        RESUME_4.addContact(ContactsType.PHONE, "344444411114");
     }
 
     public AbstractStorageTest(Storage storage) {
@@ -98,6 +105,9 @@ public abstract class AbstractStorageTest {
     @DisplayName("Update resume")
     void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "NewResumeWithFullName");
+        newResume.addContact(ContactsType.MAIL, "123");
+        newResume.addContact(ContactsType.PHONE, "34446666644444");
+        newResume.addContact(ContactsType.SKYPE, "Skype");
         storage.update(newResume);
         assertResume(newResume, UUID_1);
     }
