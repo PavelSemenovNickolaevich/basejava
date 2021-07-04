@@ -22,9 +22,12 @@ public abstract class AbstractStorageTest {
 
     public final Storage storage;
 
-    private static final String UUID_1 = UUID.randomUUID().toString();
-    private static final String UUID_2 = UUID.randomUUID().toString();
-    private static final String UUID_3 = UUID.randomUUID().toString();
+  //  private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_1 = "7346e9a7-b774-485d-943a-0fb3040d6c48";
+  //  private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_2 = "970d5022-9a00-4d21-b1f3-dc76a222a0b2";
+  //  private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_3 = "87d59185-5693-4419-86e5-af2a4cdd498f";
     private static final String UUID_4 = UUID.randomUUID().toString();
 
 //    private static final String UUID_1 = "1";

@@ -7,10 +7,7 @@ import com.urise.webapp.sql.SQLHelper;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SqlStorage implements Storage {
 
@@ -40,6 +37,14 @@ public class SqlStorage implements Storage {
             st.execute();
             return null;
         });
+        for (Map.Entry<ContactsType, String> e : r.getContacts().entrySet()) {
+            sqlHelper.<Void>execute("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)", ps -> {
+                ps.setString(1, r.getUuid());
+                ps.setString(2, e.getKey().name());
+                ps.setString(3, e.getValue());
+                return null;
+            });
+        }
     }
 //        try (Connection conn = connectionFactory.getConnection();
 //             PreparedStatement ps = conn.prepareStatement("INSERT INTO resume (uuid, full_name) VALUES (?,?)")) {
@@ -87,7 +92,13 @@ public class SqlStorage implements Storage {
                     if (!rs.next()) {
                         throw new NotExistStorageException(uuid);
                     }
-                    return new Resume(uuid, rs.getString("full_name"));
+                    Resume r = new Resume(uuid, rs.getString("full_name"));
+                    do {
+                        String value = rs.getString("value");
+                        ContactsType type = ContactsType.valueOf(rs.getString("type"));
+                        r.addContact(type, value);
+                    } while (rs.next());
+                    return r;
                 });
     }
 //        try (Connection conn = connectionFactory.getConnection();
