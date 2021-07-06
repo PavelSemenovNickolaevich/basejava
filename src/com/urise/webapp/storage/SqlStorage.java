@@ -27,20 +27,15 @@ public class SqlStorage implements Storage {
 
     @Override
     public void save(Resume r) {
-        sqlHelper.execute("INSERT INTO resume (uuid, full_name) VALUES (?,?)", st -> {
-            st.setString(1, r.getUuid());
-            st.setString(2, r.getFullName());
-            st.execute();
+        sqlHelper.transactionalExecute(conn -> {
+            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO resume (uuid, full_name) VALUES (?,?)")) {
+                ps.setString(1, r.getUuid());
+                ps.setString(2, r.getFullName());
+                ps.execute();
+            }
+            insertContact(conn, r);
             return null;
         });
-        for (Map.Entry<ContactsType, String> e : r.getContacts().entrySet()) {
-            sqlHelper.<Void>execute("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)", ps -> {
-                ps.setString(1, r.getUuid());
-                ps.setString(2, e.getKey().name());
-                ps.setString(3, e.getValue());
-                return null;
-            });
-        }
     }
 
     @Override
