@@ -54,7 +54,7 @@ public abstract class AbstractStorageTest {
         RESUME_3 = new Resume(UUID_3, "FullName3");
         RESUME_4 = new Resume(UUID_4, "FullName4");
 
-        RESUME_1.addContact(ContactsType.MAIL, "Mail");
+        RESUME_1.addContact(ContactsType.MAIL, "terminator@gmail.com");
         RESUME_1.addContact(ContactsType.PHONE, "34444444");
 
         RESUME_4.addContact(ContactsType.MAIL, "Mail1");
