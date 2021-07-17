@@ -7,13 +7,19 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static com.urise.webapp.util.DateUtil.NOW;
+import static com.urise.webapp.util.DateUtil.of;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public static final Organization EMPTY = new Organization("", "", Experience.EMPTY);
 
     private String name;
     private String url;
@@ -30,6 +36,11 @@ public class Organization implements Serializable {
 
     public Organization(String name, String url, Experience... experiences) {
         this(name, url, Arrays.asList(experiences));
+    }
+
+    public Organization(String url, List<Experience> experiences) {
+        this.url = url;
+        this.experiences = experiences;
     }
 
 
@@ -84,7 +95,9 @@ public class Organization implements Serializable {
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
-    public static class Experience implements Serializable {
+    public static class Experience extends Organization implements Serializable {
+        public static final Experience EMPTY = new Experience();
+
         private static final long serialVersionUID = 1L;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate beginDate;
@@ -108,6 +121,17 @@ public class Organization implements Serializable {
             this.title = title;
             this.description = description == null ? "" : description;
         }
+
+
+        public Experience(int startYear, Month startMonth, String title, String description) {
+            this(of(startYear, startMonth), NOW, title, description);
+        }
+
+        public Experience(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
+        }
+
+
 
 
         public LocalDate getBeginDate() {

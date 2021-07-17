@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class DataStreamSerializer implements SerializeStrategy {
 
@@ -78,10 +77,10 @@ public class DataStreamSerializer implements SerializeStrategy {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
-            readAll(dis, () -> resume.addContact(ContactsType.valueOf(dis.readUTF()), dis.readUTF()));
+            readAll(dis, () -> resume.setContact(ContactsType.valueOf(dis.readUTF()), dis.readUTF()));
             readAll(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
-                resume.addSection(sectionType, readSection(dis, sectionType));
+                resume.setSection(sectionType, readSection(dis, sectionType));
             });
             return resume;
         }

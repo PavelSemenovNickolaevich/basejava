@@ -62,11 +62,11 @@ public class Resume implements Comparable<Resume>, Serializable {
         return uuid;
     }
 
-    public void addContact(ContactsType type, String info) {
+    public void setContact(ContactsType type, String info) {
         contacts.put(type, info);
     }
 
-    public void addSection(SectionType type, AbstractSection section) {
+    public void setSection(SectionType type, AbstractSection section) {
         sections.put(type, section);
     }
 
